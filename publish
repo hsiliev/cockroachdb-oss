@@ -2,6 +2,7 @@
 
 set -e
 
+REPO=$1
 if [ -z "$REPO" ]; then
   echo "No docker repository specified"
   exit 1
