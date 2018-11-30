@@ -1,0 +1,42 @@
+#!/bin/bash
+
+set -e
+
+REPO=$1
+if [ -z "$REPO" ]; then
+  echo "No docker repository specified"
+  exit 1
+fi
+echo "Using docker repository $REPO"
+
+echo ""
+docker login
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+echo ""
+echo "Building docker images ..."
+echo ""
+for dir in $SCRIPT_DIR/*/
+do
+    dir=${dir%*/}
+    imageDir="${dir##*/}"
+
+    image=$(echo $imageDir | cut -d ':' -f 1)
+    version=$(echo $imageDir | cut -d ':' -f 2)
+    tag="$REPO/$image"
+
+    echo "Entering $dir"
+    pushd $dir
+      echo "Using tags $tag"
+      docker build -t "$tag:$version" -t "$tag:latest" .
+
+      echo ""
+      echo ">>> docker push \"$tag:$version\""
+      docker push "$tag:$version"
+
+      echo ""
+      echo ">>> docker push \"$tag:latest\""
+      docker push "$tag:latest"
+    popd
+done
