@@ -1,18 +1,22 @@
 # cockroachdb-oss
-CockroachDB OSS Docker image 
-
-## Build the image
-
-Run the publish script like this:
-```sh
-./publish <your Docker Hub repo>
-```
+CockroachDB OSS Docker image
 
 ## Using CockroachDB
 
-Start CockroachDB container:
 ```sh
-./start <your Docker Hub repo>
+docker-compose up
 ```
 
 Connect to the UI on http://localhost:8080
+
+To stop the running container(s):
+```sh
+docker-compose down
+```
+
+## Rebuild the image
+
+```sh
+./clean
+./publish <your Docker Hub repo name>
+```

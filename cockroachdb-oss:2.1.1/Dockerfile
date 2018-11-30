@@ -11,3 +11,6 @@ RUN make buildoss
 RUN make install
 
 RUN rm -rf /cockroach-v2.1.1
+
+EXPOSE 8080/tcp
+CMD cockroach start --insecure

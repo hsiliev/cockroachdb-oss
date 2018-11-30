@@ -1,0 +1,10 @@
+---
+version: "3.7"
+services:
+  cockroachdb:
+    container_name: cockroachdb
+    image: "godofcontainers/cockroach-oss:2.1.1"
+    restart: "always"
+    hostname: cockroachdb
+    ports:
+      - "8080:8080"
