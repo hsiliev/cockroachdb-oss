@@ -3,8 +3,23 @@ version: "3.7"
 services:
   cockroachdb:
     container_name: cockroachdb
-    image: "godofcontainers/cockroach-oss:2.1.1"
+    image: "godofcontainers/cockroachdb-oss:2.1.1"
     restart: "always"
     hostname: cockroachdb
     ports:
       - "8080:8080"
+      - "26257:26257"
+    networks:
+     - roachnet
+  db-1:
+    image: "godofcontainers/cockroachdb-oss:2.1.1"
+    command: cockroach start --insecure --join=cockroachdb
+    networks:
+     - roachnet
+  db-2:
+    image: "godofcontainers/cockroachdb-oss:2.1.1"
+    command: cockroach start --insecure --join=cockroachdb
+    networks:
+     - roachnet
+networks:
+  roachnet:

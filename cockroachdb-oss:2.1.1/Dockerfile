@@ -13,4 +13,6 @@ RUN make install
 RUN rm -rf /cockroach-v2.1.1
 
 EXPOSE 8080/tcp
+EXPOSE 26257/tcp
+
 CMD cockroach start --insecure
